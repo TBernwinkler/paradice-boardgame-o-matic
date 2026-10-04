@@ -1,0 +1,50 @@
+<div class="results">
+    <h2 style="text-align: center;">{{ 'pages.results.headline' | translate }}</h2>
+
+    @for (game of displayedResults; track $index) {
+        <div class="game">
+            <div class="image">
+                <img [src]=game.thumbnailUrl>
+            </div>
+            <div class="infos">
+                <h3 class="game-title">{{game.name}}</h3>
+                <!--<p>Score: {{game.score}} (temporary, matching score for development purposes)</p>-->
+                <div class="game-description-toggle">
+                    <div class="toggle-expand" [id]="game.id" (click)="toggleDescription(game.id, true)"><fa-icon [icon]="faAngleDown"></fa-icon>{{ 'pages.results.gameEntry.showDescription' | translate }}</div>
+                    <div class="toggle-collapse" [id]="game.id + 'expand'" (click)="toggleDescription(game.id, false)"><fa-icon [icon]="faAngleUp"></fa-icon>{{ 'pages.results.gameEntry.hideDescription' | translate }}</div>
+                </div>
+                
+                <p class="game-description">{{ (language$ | async) == 'de' && game.descriptions.DE != '' ? game.descriptions.DE : game.descriptions.EN }}</p>
+                
+                <div class="info-table">
+                    <p><fa-icon [icon]="faLocationDot"></fa-icon> {{game.paradiceLocation}}</p>
+                    <p><fa-icon [icon]="faStar"></fa-icon> BGG Rating: {{game.rating.toFixed(2)}}</p>
+                    <p><fa-icon [icon]="faUsers"></fa-icon> {{game.minPlayers}}-{{game.maxPlayers}} {{ 'pages.results.gameEntry.players' | translate}}</p>
+                    <!--potential enhancement: game time multiplier for more realistic times-->
+                    <p><fa-icon [icon]="faClock"></fa-icon> {{getPlayTimeString(game.playingTimeCategory)}}</p>
+                    <p><fa-icon [icon]="faHandshake"></fa-icon> {{ ('pages.results.gameEntry.conflictLevel.' + (game.isCooperative > 0 ? 'coop' : game.isCooperative == 0 ? 'teams' : 'vs')) | translate}} </p>
+                    <p><fa-icon [icon]="faDumbbell"></fa-icon> {{getDifficultyString(game.difficulty)}}</p>
+                    @if (game.minAge >= 0) {
+                        <p><fa-icon [icon]="faCakeCandles"></fa-icon> {{ 'pages.results.gameEntry.minimumAge' | translate}}: {{game.minAge}}</p>
+                    }
+                    @if (game.types.length > 0) {
+                        <p><fa-icon [icon]="faSliders"></fa-icon> {{ getTranslatedGameTypeString(game.types) }}</p>
+                    }
+                    @if (game.languageDependent >= 0) {
+                        <p><fa-icon [icon]="faEarthEurope"></fa-icon> {{ 'pages.results.gameEntry.languageDependencyGroup.' + game.languageDependent.toString() | translate}}</p>
+                    }
+                    <p><fa-icon [icon]="game.restricted ? faLock : faLockOpen"></fa-icon> {{game.restricted ? ('pages.results.gameEntry.restricted.true' | translate) : ('pages.results.gameEntry.restricted.false' | translate)}}</p>
+                    <p><fa-icon [icon]="faCalendarDays"></fa-icon> {{ 'pages.results.gameEntry.releaseYear' | translate }}: {{game.yearPublished}}</p>
+                    @if (game.languages.length > 0) {
+                        <p><fa-icon [icon]="faEarthEurope"></fa-icon> {{ getTranslatedLanguageString(game.languages) }}</p>
+                    }
+                </div>
+            </div>
+        </div>   
+    }
+
+    <div class="result-page-buttons">
+        <button class="classic" (click)="loadMore()">{{ 'pages.results.loadMoreButton' | translate}}</button>
+        <button class="classic" routerLink="/">Zurück zum Anfang</button>
+    </div>
+</div>

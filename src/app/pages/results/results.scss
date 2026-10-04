@@ -1,0 +1,135 @@
+@use "sass:map";
+@use "../../../variables";
+
+@mixin respond($breakpoint) {
+  @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+.results {
+    @include respond(lg) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.game {
+    background-color: var(--paradice-blue);
+    color: white;   
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;  
+
+    &:nth-child(odd) {
+        background-color: white;
+        color: var(--paradice-blue);
+    }
+
+    .image {
+        width: 100%;
+        text-align: center;
+        margin: 1.5rem .25rem 0 .25rem;
+
+        img {
+            width: 200px;
+            border-radius: 12px;
+        }
+    }
+
+    .info-table { 
+        margin: 1.5rem auto;
+        p {
+            margin: 0.75rem 0;
+        }
+    }
+
+    .infos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        hr {
+            width: 100%;
+        }
+    }
+
+    @include respond(md) {
+        margin: 0 2.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+
+        &:nth-child(odd) {
+            background-color: var(--paradice-contrast);
+            color: white;
+    }
+    }
+
+    @include respond(lg) {
+        width: min(100% - 10rem, 1024px);
+        justify-content: center;
+
+        .infos hr {
+            width: 600px;
+        }
+    }   
+}
+
+.game-title {
+    text-align: center;
+    font-size: 125%;
+    font-variant: small-caps;
+    margin: .5rem 0;
+
+    @include respond(md) {
+        margin: 1rem 0;     
+    }
+}
+
+.game-description-toggle {
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    background-color: #ccc;
+    color: var(--paradice-contrast);
+    cursor: pointer;
+
+    .toggle-collapse {
+        display: none;
+    }
+
+    &.active .toggle-expand {
+        display: none;
+    }
+  
+    &.active .toggle-collapse {
+        display: unset;
+    }
+}
+
+.game-description {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    display: none;
+    margin-bottom: 0;
+
+    &.expand {
+        display: unset;
+    }
+}
+
+.result-page-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include respond(md) {
+        align-items: center;
+        .classic {
+            width: 400px;
+            margin: .5rem auto;
+        }        
+    }
+}

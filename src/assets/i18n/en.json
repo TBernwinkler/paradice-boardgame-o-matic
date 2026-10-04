@@ -1,0 +1,79 @@
+{
+    "pages": {
+        "welcome": {
+            "boardgameomatic": "Boardgame-O-Matic",
+            "subline": "Finding boardgames in a playful way",
+            "description": "Answer a few question to figure out which of our games match your preferences best.",
+            "buttonLabel": "Let's go!"
+        },
+         "questionnaire": {
+            "multiSelectInfo": "Multi-select available",
+            "skipButton": "Skip",
+            "nextButton": "Next",
+            "backButton": "Back",
+            "submitButton": "Submit"
+        },
+        "results": {
+            "headline": "Results",
+            "gameEntry": {
+                "showDescription": "Show Description",
+                "hideDescription": "Hide Description",
+                "playTime": {
+                    "upTo": "Up to",
+                    "moreThan": "More than",
+                    "minutes": "minutes"
+                },
+                "conflictLevel": {
+                    "coop": "Cooperative",
+                    "teams": "Team based",
+                    "vs": "Competitive"
+                },
+                "languageDependencyGroup": {
+                    "1": "No necessary in-game text",
+                    "2": "Some necessary text",
+                    "3": "Moderate in-game text",
+                    "4": "Extensive use of text",
+                    "5": "Unplayable in another language"
+                },
+                "gameTypes" : {
+                    "familygames": "Family Games",
+                    "strategygames": "Strategy Games",
+                    "thematic": "Thematic Games",
+                    "partygames": "Party Games",
+                    "childrensgames": "Children's Games",
+                    "abstracts": "Abstract Games",
+                    "wargames": "Wargames"
+                },
+                "minimumAge": "Mindestalter",
+                "players": "Players",
+                "releaseYear": "Year of release",
+                "restricted": {
+                    "true": "Members only",
+                    "false": "Free access"
+                },
+                "difficulty": {
+                    "1": "Super easy",
+                    "2": "Beginner friendly",
+                    "3": "Moderate",
+                    "4": "Advanced",
+                    "5": "For experts"
+                },
+                "languages": {
+                    "german": "German",
+                    "english": "English",
+                    "french": "French",
+                    "italian": "Italian",
+                    "dutch": "Dutch",
+                    "portuguese": "Portuguese",
+                    "spanish": "Spanish"
+                }
+            },
+            "loadMoreButton": "Load more"
+        },
+        "footer": {
+            "mainCollection": "Main Game Collection",
+            "github": "GitHub",
+            "imprint": "Imprint & Legal"
+        }
+    }
+}

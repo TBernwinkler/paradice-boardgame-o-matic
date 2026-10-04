@@ -1,0 +1,30 @@
+@use "sass:map";
+@use "../../../variables";
+
+@mixin respond($breakpoint) {
+  @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+.footer-bar {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1rem auto;
+
+    p, div {
+      margin: 0.5rem 1rem;
+      padding: 0.25rem 1rem;
+    }
+
+    @include respond(lg) {
+      flex-direction: row;
+        p, div {
+          margin: 2rem;
+          padding: 0.25rem 1rem;
+      }
+    }
+
+    
+}

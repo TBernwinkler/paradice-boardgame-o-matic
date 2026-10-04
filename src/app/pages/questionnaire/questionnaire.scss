@@ -1,0 +1,157 @@
+@use "sass:map";
+@use "../../../variables";
+
+@mixin respond($breakpoint) {
+  @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+.questionnaire {
+    text-align: center;
+    width: 100%;
+    
+    .question {
+        margin: 0 auto;
+        width: min(100% - 3rem, 1280px);
+    }
+}
+
+.card {
+    background-color: var(--paradice-blue);
+    color: white;
+    padding: 0.75rem;
+    margin: 0;
+
+    @include respond(md) {
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
+        margin: 1rem 2.5rem;
+    }
+
+    @include respond(lg) {
+        border-radius: 12px;
+        align-content: center;
+        margin: 1rem auto;
+        padding: 0.75rem 0.5rem;
+        width: min(1024px - 5rem, 1024px);
+    }
+
+}
+
+button.option {
+    @include respond(md) {
+        max-width: 500px;
+        width: 500px;
+        padding: 1rem 1.25rem;
+    }
+}
+
+button.option.secondary {
+    background-color: lightgrey;
+    color: var(--paradice-contrast);
+    padding: 0.75rem 2.5rem;
+    margin: 1rem 0.5rem 0 0.5rem;
+}
+
+
+.bonus-options {
+    text-align: center;
+    color: white;
+    margin: 2rem auto 0.5rem auto;
+}
+
+.skip-wrapper {
+    text-align: center;
+    margin: 0;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0rem 2rem;
+    margin: 0;
+
+    @include respond(md) {
+        margin: 1rem;
+        align-items: center;
+    }
+
+    @include respond(lg) {
+        //flex-direction: row;
+        //margin: 1.5rem 0.25rem;
+        //text-align: left;
+    }
+}
+
+.button-wrapper-nav {
+    flex-direction: row;
+    margin-top: .5rem;
+}
+
+.progress {
+    margin: auto 1rem;
+    text-align: center;
+}
+
+
+// youtube stuff
+.toggle {
+    // position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        //position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    //.onoff {
+        // margin-bottom: 20px;
+        //display: block;
+    //}
+}
+
+.slider {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    transition: 0.4s;
+    width: 50px;
+    height: 30px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        background-color: var(--paradice-blue);
+        transition: 0.4s;
+        top: 2.5px;
+        left: 2.5px;
+    }
+
+    &.round {
+        border-radius: 50px;
+
+        &::before {
+            border-radius: 60px;
+        }
+    }
+}
+
+input:checked + .slider {
+    //background-color: var(--paradice-contrast);
+
+    &::before {
+        transform: translateX(20px);
+        background-color: var(--paradice-contrast);
+    }
+}
+

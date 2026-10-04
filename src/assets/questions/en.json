@@ -1,0 +1,383 @@
+[
+    {
+        "id": 0,
+        "headline": "Location",
+        "headlineIcon": "faLocationDot",
+        "question": "What Paradice location would you like to check out?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Select multiple locations",
+        "canSkip": false,
+        "canPrioritize": false,
+        "isPrioritized": false,
+        "priorityLabel": "",
+        "options": [
+            {
+                "id": 0,
+                "value": "Jo & Joe",
+                "district": "(1150 Wien)",
+                "selected": false
+            },
+            {
+                "id": 1,
+                "value": "Gleis//Garten",
+                "district": "(1120 Wien)",
+                "selected": false
+            },
+            {
+                "id": 2,
+                "value": "Seestadt",
+                "district": "(1220 Wien)",
+                "selected": false
+            },
+            {
+                "id": 3,
+                "value": "Store",
+                "district": "(1200 Wien)",
+                "selected": false
+            },
+            {
+                "id": 4,
+                "value": "Superbude",
+                "district": "(1020 Wien)",
+                "selected": false
+            },
+            {
+                "id": 5,
+                "value": "Tischlerei",
+                "district": "(1100 Wien)",
+                "selected": false
+            },
+            {
+                "id": 6,
+                "value": "Im Zweiten",
+                "district": "(1020 Wien)",
+                "selected": false
+            } 
+        ]
+    },
+    {
+        "id": 1,
+        "headline": "Membership",
+        "headlineIcon": "faDiceSix",
+        "question": "Are you a Paradice club member?",
+        "canMultiSelect": false,
+        "multiSelectLabel": "",
+        "canSkip": false,
+        "canPrioritize": false,
+        "isPrioritized": false,
+        "priorityLabel": "",
+        "options": [
+                        {
+                "id": 10,
+                "value": "Yes",
+                "selected": false
+            },
+            {
+                "id": 11,
+                "value": "No",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "headline": "Number of players",
+        "headlineIcon": "faUsers",
+        "question": "How many players would like to play a game?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Choose multiple options",
+        "canSkip": false,
+        "canPrioritize": false,
+        "isPrioritized": false,
+        "priorityLabel": "",
+        "options": [
+            {
+                "id": 20,
+                "value": "Solo",
+                "selected": false
+            },
+            {
+                "id": 21,
+                "value": "2",
+                "selected": false
+            },
+            {
+                "id": 22,
+                "value": "3",
+                "selected": false
+            },
+            {
+                "id": 23,
+                "value": "4",
+                "selected": false
+            },
+            {
+                "id": 24,
+                "value": "5",
+                "selected": false
+            },
+            {
+                "id": 25,
+                "value": "6",
+                "selected": false
+            },
+            {
+                "id": 26,
+                "value": "7+",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "headline": "Difficulty Level",
+        "headlineIcon": "faDumbbell",
+        "question": "How challenging would you like the game to be?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Choose multiple difficulty levels",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options":[
+            {
+                "id": 30,
+                "value": "Super easy",
+                "selected": false
+            },
+            {
+                "id": 31,
+                "value": "Beginner friendly",
+                "selected": false
+            },
+            {
+                "id": 32,
+                "value": "Moderate",
+                "selected": false
+            },
+            {
+                "id": 33,
+                "value": "Advanced",
+                "selected": false
+            },
+            {
+                "id": 34,
+                "value": "For experts",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "headline": "Duration",
+        "headlineIcon": "faClock",
+        "question": "How long would you like to play?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Time is flexible. Select multiple options.",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options":[
+            {
+                "id": 40,
+                "value": "Up to 45 min",
+                "selected": false
+            },            {
+                "id": 41,
+                "value": "45 - 90 min",
+                "selected": false
+            },
+            {
+                "id": 42,
+                "value": "90 - 120 min",
+                "selected": false
+            },
+            {
+                "id": 43,
+                "value": "120 - 180 min",
+                "selected": false
+            },
+            {
+                "id": 44,
+                "value": "More than 180 min",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "headline": "Type of Game",
+        "headlineIcon": "faSliders",
+        "question": "What type of game do you like the most?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Choose multiple categories",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options": [
+            {
+                "id": 50,
+                "value": "Family games",
+                "selected": false
+            },
+            {
+                "id": 51,
+                "value": "Stategy games",
+                "selected": false
+            },
+            {
+                "id": 52,
+                "value": "Thematic games",
+                "selected": false
+            },
+            {
+                "id": 53,
+                "value": "Party games",
+                "selected": false
+            },
+            {
+                "id": 54,
+                "value": "Children's games",
+                "selected": false
+            },
+            {
+                "id": 55,
+                "value": "Abstract Games",
+                "selected": false
+            },
+            {
+                "id": 56,
+                "value": "Wargames",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "headline": "Cooperative Vs. competitive",
+        "headlineIcon": "faHandshakeAngle",
+        "question": "What type of game do you prefer?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Choose multiple options",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options": [
+            {
+                "id": 60,
+                "value": "Cooperative (Everone together Vs. the game)",
+                "selected": false
+            },
+            {
+                "id": 61,
+                "value": "Team based / semi-cooperative (Team Vs. Team, or 1 player Vs. everyone else)",
+                "selected": false
+            },
+            {
+                "id": 62,
+                "value": "Competitive (One player wins)",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "headline": "Player Age",
+        "headlineIcon": "faCakeCandles",
+        "question": "Should the game recommendation be appropriate for children, or should it attract grown-ups?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Choose multiple categories",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options": [
+            {
+                "id": 70,
+                "value": "Up to 8 years",
+                "selected": false
+            },
+            {
+                "id": 71,
+                "value": "10-12 Years",
+                "selected": false
+            },
+            {
+                "id": 72,
+                "value": "14-16 Years",
+                "selected": false
+            },
+            {
+                "id": 73,
+                "value": "18+ Years",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "headline": "Language Dependency",
+        "headlineIcon": "faEarthEurope",
+        "question": "Should the game include very little text, to make it playable for non-native speakers, or people who don't speak German?",
+        "canMultiSelect": true,
+        "multiSelectLabel": "Choose multiple options",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options": [
+            {
+                "id": 80,
+                "value": "No necessary in-game text",
+                "selected": false
+            },
+            {
+                "id": 81,
+                "value": "Some necessary text (easily memorized or small crib sheet)",
+                "selected": false
+            },
+            {
+                "id": 82,
+                "value": "Moderate in-game text (needs crib sheet or paste ups)",
+                "selected": false
+            },
+            {
+                "id": 83,
+                "value": "Extensive use of text (massive conversion needed to be playable)",
+                "selected": false
+            },
+            {
+                "id": 84,
+                "value": "Unplayable in another language",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "headline": "Latest releases",
+        "headlineIcon": "faCalendarDays",
+        "question": "Do you prefer games that have only recently been published/released?",
+        "canMultiSelect": false,
+        "multiSelectLabel": "",
+        "canSkip": true,
+        "canPrioritize": true,
+        "isPrioritized": false,
+        "priorityLabel": "Very important",
+        "options": [
+            {
+                "id": 90,
+                "value": "Yes, I'd love to try the new games",
+                "selected": false
+            },
+            {
+                "id": 91,
+                "value": "No, include older games",
+                "selected": false
+            }
+        ]
+    }
+]

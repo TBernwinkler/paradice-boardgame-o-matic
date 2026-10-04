@@ -1,1 +1,134 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sass:map";
+@use "variables";
+
+html {
+  min-height: 100dvh;
+}
+
+// THEMED COLORS
+:root {
+    --paradice-blue: #2b388f;
+    --paradice-contrast: #1f244a;
+    // classic #fff white for contrast
+}
+
+body {
+  // Reset the user agent margin.
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  font-size: 120%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-size: 170%;
+}
+
+@mixin respond($breakpoint) {
+  @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+.no-mobile {
+    display: none;
+
+    @include respond(md) {
+        display: unset;
+    }
+}
+
+.content-wrapper {
+  //margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  div {
+    border-style: none;
+  }
+}
+
+// Common header/footer styles
+.header a, .footer a {
+  text-decoration: none;
+  background-color: var(--paradice-blue);
+  color: white;
+  padding: 1rem;
+}
+
+.content a {
+  text-decoration: none;
+  background-color: white;
+  color: var(--paradice-blue);
+  padding: 1rem;
+}
+
+.header a:hover.link, .footer a:hover.link {
+    background-color: white;
+    color: var(--paradice-blue);
+    border-radius: 10px;
+}
+
+.content a:hover {
+  background-color: var(--paradice-blue);
+  color: white;
+  border-radius: 10px;
+}
+
+
+.content ul {
+  li {
+    padding: 15px;
+  }
+}
+
+// Global button definition
+button {
+  border-radius: 8px;
+  padding: .75rem 1.25rem;
+  margin: .75rem .5rem;
+  font-weight: bold;
+  border-style: none;
+  
+  &.classic {
+    background-color: var(--paradice-blue);
+    color: white;
+
+    &:disabled {
+      opacity: 50%;
+    }
+
+    &:hover {
+      background-color: var(--paradice-contrast);
+    }
+  }
+
+  &.option {
+    background-color: white;
+    color: var(--paradice-blue);
+
+    &:hover {
+      background-color: var(--paradice-blue);
+      color: white;
+      border: 1px solid white;
+    }
+
+    &.selected {
+      //background-color: #04AA6D;
+      background-color: var(--paradice-contrast);
+      color: white;
+    }
+  }
+
+  &.classic:hover, &.option:hover {
+    cursor: pointer;
+    font-weight: bolder;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+

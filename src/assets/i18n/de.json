@@ -1,0 +1,79 @@
+{
+    "pages": {
+        "welcome": {
+            "boardgameomatic": "Brettspiel-O-Mat",
+            "subline": "Spielerisch passende Brettspiele finden",
+            "description": "Beantworte wenige Fragen, um herauszufinden, welche unserer Spiele am besten zu deinen Vorlieben passen.",
+            "buttonLabel": "Los geht's!"
+        },
+        "questionnaire": {
+            "multiSelectInfo": "Mehrfachauswahl möglich",
+            "skipButton": "Überspringen",
+            "nextButton": "Weiter",
+            "backButton": "Zurück",
+            "submitButton": "Abschließen"
+        },
+        "results": {
+            "headline": "Ergebnisse",
+            "gameEntry": {
+                "showDescription": "Beschreibung anzeigen",
+                "hideDescription": "Beschreibung ausblenden",
+                "playTime": {
+                    "upTo": "Bis zu",
+                    "moreThan": "Mehr als",
+                    "minutes": "Minuten"
+                },
+                "conflictLevel": {
+                    "coop": "Kooperativ",
+                    "teams": "Team bsiert",
+                    "vs": "Kompetitiv"
+                },
+                "languageDependencyGroup": {
+                    "1": "Kein Spiel relevanter Text",
+                    "2": "Wenig Text",
+                    "3": "Moderate Mengen an Text",
+                    "4": "Beachtliche Menge an Text",
+                    "5": "Sehr viel Text"
+                },
+                "gameTypes" : {
+                    "familygames": "Familienspiele",
+                    "strategygames": "Strategiespiele",
+                    "thematic": "Thematische Spiele",
+                    "partygames": "Partyspiele",
+                    "childrensgames": "Kinderspiele",
+                    "abstracts": "Abstrakte Spiele",
+                    "wargames": "Kriegsspiele"
+                },
+                "minimumAge": "Mindestalter",
+                "players": "Spieler",
+                "releaseYear": "Erscheinungsjahr",
+                "restricted": {
+                    "true": "Nur für Mitglieder",
+                    "false": "Frei zugänglich"
+                },
+                "difficulty": {
+                    "1": "Super einfach",
+                    "2": "Einstiegsfreundlich",
+                    "3": "Moderat",
+                    "4": "Fortgeschritten",
+                    "5": "Für Expert:innen"
+                },
+                "languages": {
+                    "german": "Deutsch",
+                    "english": "Englisch",
+                    "french": "Französisch",
+                    "italian": "Italienisch",
+                    "dutch": "Niederländisch",
+                    "portuguese": "Portugiesisch",
+                    "spanish": "Spanisch"
+                }
+            },
+            "loadMoreButton": "Mehr laden"
+        },
+        "footer": {
+            "mainCollection": "Zur Spielesammlung",
+            "github": "GitHub",
+            "imprint": "Impressum & Datenschutz"
+        }
+    }
+}

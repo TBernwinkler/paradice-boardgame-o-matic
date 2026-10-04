@@ -1,0 +1,17 @@
+<div class="content-wrapper header">
+    <div class="main-nav no-mobile">
+        <a href="/"><fa-icon [icon]="faHome"></fa-icon></a>
+    </div>
+    <div class="nav-main">
+        <a href="https://www.paradice.wien/" target="_blank">
+            <img class="logo" src="/assets/ParadiceClubLogoSmall.webp" alt="Paradice Logo">
+        </a>
+    </div>
+    <div class="nav-menu">
+        <div class="lang-group"><fa-icon [icon]="faLanguage"></fa-icon></div>
+        <div class="lang-group"><a id="lang-select-de" (click)="setLanguage('de')" class="language link" [ngClass]="{selected: (language$ | async) === 'de'}">DE</a></div>
+        <div class="lang-group">|</div>
+        <div class="lang-group"><a id="lang-select-en" (click)="setLanguage('en')" class="language link" [ngClass]="{selected: (language$ | async) === 'en'}">EN</a></div>
+    </div>
+    
+</div>
