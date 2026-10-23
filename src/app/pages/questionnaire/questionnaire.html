@@ -1,53 +1,55 @@
-@for (question of questions; track $index) {
-    @if ($index == activeQuestionIndex) {
-        <div class="questionnaire">
-            <div class="question">
-                <h2><fa-icon [icon]="getIcon(question.headlineIcon)"></fa-icon> {{ question.headline }}</h2>
-                <hr>
-                <p>{{ question.question }}</p>
-            </div>
-            <div class="card">    
-                <div class="button-wrapper">
-                    @for (answerOption of question.options; track $index) {
-                        <button class="option" [ngClass]="questions[activeQuestionIndex].options[$index].selected ? 'selected' : ''" type="button" (click)="selectAnswer(answerOption.id)">{{ answerOption.value }}</button>
-                    }
+@if (questions$ | async; as questions) {
+    @for (question of questions; track $index) {
+        @if ($index == activeQuestionIndex) {
+            <div class="questionnaire">
+                <div class="question">
+                    <h2><fa-icon [icon]="getIcon(question.headlineIcon)"></fa-icon> {{ question.headline }}</h2>
+                    <hr>
+                    <p>{{ question.question }}</p>
                 </div>
-                <!-- bonus condition to avoid extra spacing -->
-                @if (question.canMultiSelect || question.canPrioritize) {
-                    <div class="bonus-options">
-                        @if (question.canMultiSelect) {
-                            <p><fa-icon [icon]="faCircleInfo"></fa-icon> {{ 'pages.questionnaire.multiSelectInfo' | translate}}</p>
-                        }
-                        @if (question.canPrioritize) {
-                            <label class="toggle">
-                                <span class="onoff">{{question.priorityLabel}}</span>
-                                <input type="checkbox" [(ngModel)]="question.isPrioritized" id="{{question.id}}-prioritize" name="{{question.id}}-prioritize" (change)="changePriority(question.id)">
-                                <span class="slider round"></span>
-                            </label>
+                <div class="card">    
+                    <div class="button-wrapper">
+                        @for (answerOption of question.options; track $index) {
+                            <button class="option" [ngClass]="questions[activeQuestionIndex].options[$index].selected ? 'selected' : ''" type="button" (click)="selectAnswer(answerOption.id)">{{ answerOption.value }}</button>
                         }
                     </div>
-                }   
-            </div> 
-        </div>
-    }
-}
-
-@for (question of questions; track $index) {
-    @if ($index == activeQuestionIndex) {
-        <!--@if (question.canSkip) {
-            <div class="skip-wrapper">
-                <button class="option secondary">{{'pages.questionnaire.skipButton' | translate}}</button>             
+                    <!-- bonus condition to avoid extra spacing -->
+                    @if (question.canMultiSelect || question.canPrioritize) {
+                        <div class="bonus-options">
+                            @if (question.canMultiSelect) {
+                                <p><fa-icon [icon]="faCircleInfo"></fa-icon> {{ 'pages.questionnaire.multiSelectInfo' | translate}}</p>
+                            }
+                            @if (question.canPrioritize) {
+                                <label class="toggle">
+                                    <span class="onoff">{{question.priorityLabel}}</span>
+                                    <input type="checkbox" [(ngModel)]="question.isPrioritized" id="{{question.id}}-prioritize" name="{{question.id}}-prioritize" (change)="changePriority(question.id)">
+                                    <span class="slider round"></span>
+                                </label>
+                            }
+                        </div>
+                    }   
+                </div> 
             </div>
-        }-->
+        }
+    }
 
-        <div class="button-wrapper button-wrapper-nav">
-            <button class="classic" type="button" (click)="goBack()">{{ 'pages.questionnaire.backButton' | translate }}</button>
-            <p class="progress">{{ activeQuestionIndex + 1 }} / {{ questions.length }}</p>
-            @if (isNextQuestionAvailable()) {
-                <button class="classic" type="button" (click)="goForward()" [disabled]="!question.canSkip && !this.questions[this.activeQuestionIndex].options.find(element => element.selected == true)">{{ (question.canSkip && !this.questions[this.activeQuestionIndex].options.find(element => element.selected == true) ? 'pages.questionnaire.skipButton' : 'pages.questionnaire.nextButton') | translate }}</button>
-            } @else {
-                <button class="classic" type="button" (click)="submitAnswers()">{{ 'pages.questionnaire.submitButton' | translate }}</button>
-            }
-        </div>
+    @for (question of questions; track $index) {
+        @if ($index == activeQuestionIndex) {
+            <!--@if (question.canSkip) {
+                <div class="skip-wrapper">
+                    <button class="option secondary">{{'pages.questionnaire.skipButton' | translate}}</button>             
+                </div>
+            }-->
+
+            <div class="button-wrapper button-wrapper-nav">
+                <button class="classic" type="button" (click)="goBack()">{{ 'pages.questionnaire.backButton' | translate }}</button>
+                <p class="progress">{{ activeQuestionIndex + 1 }} / {{ questions.length }}</p>
+                @if (isNextQuestionAvailable()) {
+                    <button class="classic" type="button" (click)="goForward()" [disabled]="!question.canSkip && !questions[this.activeQuestionIndex].options.find(element => element.selected == true)">{{ (question.canSkip && !questions[this.activeQuestionIndex].options.find(element => element.selected == true) ? 'pages.questionnaire.skipButton' : 'pages.questionnaire.nextButton') | translate }}</button>
+                } @else {
+                    <button class="classic" type="button" (click)="submitAnswers()">{{ 'pages.questionnaire.submitButton' | translate }}</button>
+                }
+            </div>
+        }
     }
 }

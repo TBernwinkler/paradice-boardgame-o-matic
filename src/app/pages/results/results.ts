@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiGame, Game } from '../../models/game';
 import { Observable } from 'rxjs';
 import { gameFeatures, GamesState } from '../../states/games/game.feature';
@@ -33,6 +33,7 @@ export class Results {
   faAngleUp = faAngleUp;
   faHandshake = faHandshake
 
+  private router = inject(Router);
   private route = inject(ActivatedRoute);
   private translate = inject(TranslateService);
   private readonly store = inject(Store<GamesState>);
@@ -185,40 +186,44 @@ export class Results {
     this.games$.subscribe(games => {
         console.log('Initially: ', games.length)
 
-        this.scoredResults = []
-        games.forEach(game => {
-          this.scoredResults.push(new Game(game.id, game.name, game.current_year, game.descriptions, game.difficulty_category, game.diffculty_limiters, game.game_mechanics, game.game_themes,
-            game.is_cooperative, game.language_dependency_group, game.languages, game.location, game.min_players, game.max_players, game.play_time_multiplier, game.playing_time_category, game.rating,
-            game.recommended_player_numbers, game.release_group, game.thumbnail, game.year_published, game.restricted, game.types, game.min_age
-          ))
-        });
+        if (games.length == 0) {
+          this.router.navigateByUrl('/'); // currently, there's no support for a page refresh
+        } else {
+          this.scoredResults = []
+          games.forEach(game => {
+            this.scoredResults.push(new Game(game.id, game.name, game.current_year, game.descriptions, game.difficulty_category, game.diffculty_limiters, game.game_mechanics, game.game_themes,
+              game.is_cooperative, game.language_dependency_group, game.languages, game.location, game.min_players, game.max_players, game.play_time_multiplier, game.playing_time_category, game.rating,
+              game.recommended_player_numbers, game.release_group, game.thumbnail, game.year_published, game.restricted, game.types, game.min_age
+            ))
+          });
 
-        this.scoredResults = this.filterLocation(this.scoredResults, this.userInputLocationIds);
-        // possible enhancement: use recommended_player_numbers for sorting
-        this.scoredResults = this.filterPlayerCount(this.scoredResults, this.userInputPlayerCountIds);
+          this.scoredResults = this.filterLocation(this.scoredResults, this.userInputLocationIds);
+          // possible enhancement: use recommended_player_numbers for sorting
+          this.scoredResults = this.filterPlayerCount(this.scoredResults, this.userInputPlayerCountIds);
 
-        this.scoredResults = this.removeDuplicates(this.scoredResults);
-        console.log('After player count filter: ', this.scoredResults.length)
+          this.scoredResults = this.removeDuplicates(this.scoredResults);
+          console.log('After player count filter: ', this.scoredResults.length)
 
-        this.scoredResults.forEach(game => {
-          game.score = this.scoreByTable(game.rating, game.difficulty, this.userInputDifficultyIds, this.difficultyMap, this.userInputDifficultyPriority);
-          game.score = this.scoreByTable(game.score, game.playingTimeCategory, this.userInputPlayTimeIds, this.playTimeMap, this.userInputPlayTimePriority);
-          
-          game.score = this.scoreByCategory(game.score, game.types, this.userInputGameTypeIds, this.userInputGameTypePriority);
-          game.score = this.scoreByGameConflictType(game.score, game.isCooperative, this.userInputConflictIds, this.userInputConflictPriority);
-          game.score = this.scoreByAgeGroup(game.score, game.minAge, this.userInputPlayerAgeIds, this.userInputPlayerAgePriority);
+          this.scoredResults.forEach(game => {
+            game.score = this.scoreByTable(game.rating, game.difficulty, this.userInputDifficultyIds, this.difficultyMap, this.userInputDifficultyPriority);
+            game.score = this.scoreByTable(game.score, game.playingTimeCategory, this.userInputPlayTimeIds, this.playTimeMap, this.userInputPlayTimePriority);
+            
+            game.score = this.scoreByCategory(game.score, game.types, this.userInputGameTypeIds, this.userInputGameTypePriority);
+            game.score = this.scoreByGameConflictType(game.score, game.isCooperative, this.userInputConflictIds, this.userInputConflictPriority);
+            game.score = this.scoreByAgeGroup(game.score, game.minAge, this.userInputPlayerAgeIds, this.userInputPlayerAgePriority);
 
-          game.score = this.scoreByTable(game.score, game.languageDependent, this.userInputTextIds, this.langDependencyMap, this.userInputTextPriority);
-          game.score = this.scoreByReleaseDate(game.score, game.yearPublished, this.userInputReleasesIds.indexOf(90) >= 0, this.userInputReleasesPriority);
-        });
+            game.score = this.scoreByTable(game.score, game.languageDependent, this.userInputTextIds, this.langDependencyMap, this.userInputTextPriority);
+            game.score = this.scoreByReleaseDate(game.score, game.yearPublished, this.userInputReleasesIds.indexOf(90) >= 0, this.userInputReleasesPriority);
+          });
 
-        this.scoredResults = this.removeDuplicates(this.scoredResults);
-        // sorting by score, descending order
-        this.scoredResults = this.scoredResults.sort(function(a, b){
-          return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;
-        })
+          this.scoredResults = this.removeDuplicates(this.scoredResults);
+          // sorting by score, descending order
+          this.scoredResults = this.scoredResults.sort(function(a, b){
+            return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;
+          })
 
-        this.displayedResults = this.scoredResults.splice(0, this.numberOfResults);
+          this.displayedResults = this.scoredResults.splice(0, this.numberOfResults);
+        }
       });
   }
 

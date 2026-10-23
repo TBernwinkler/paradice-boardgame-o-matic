@@ -10,9 +10,9 @@ import { faBolt, faCakeCandles, faCalendarDays, faCircleInfo, faClock, faDiceSix
 import { HttpClient } from '@angular/common/http';
 import { AppState } from '../../states/app.state';
 import { Store } from '@ngrx/store';
-import { forkJoin, map, Observable } from 'rxjs';
+import { combineLatest, forkJoin, map, Observable } from 'rxjs';
 import { selectLanguage } from '../../states/language/language.selector';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { AnswersState } from '../../states/answers/answers.feature';
 import { setAnswers } from '../../states/answers/answers.action';
 import { AnswerOption } from '../../models/answer.option';
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-questionnaire',
-  imports: [FaIconComponent, TranslatePipe, NgClass, FormsModule],
+  imports: [FaIconComponent, TranslatePipe, NgClass, FormsModule, AsyncPipe],
   templateUrl: './questionnaire.html',
   styleUrl: './questionnaire.scss',
 })
@@ -56,13 +56,13 @@ export class Questionnaire {
 
   questionsEN: Array<SurveyEntry> = [];
   questionsDE: Array<SurveyEntry> = [];
-  questions: Array<SurveyEntry> = [];
+  questions$: Observable<Array<SurveyEntry>>;;
 
   activeQuestionIndex: number = 0;
   private personalCollectionId = '';
 
   constructor() {
-    this.language$ = this.store.select(selectLanguage)
+    
     this.translate.addLangs(['de', 'en']);
     this.translate.setFallbackLang('de');
     this.translate.use('de'); // default
@@ -70,31 +70,28 @@ export class Questionnaire {
     const snapshot = this.route.snapshot;
     const personalCollection = snapshot.queryParamMap.get('personalCollection');
     
-    forkJoin({
-      german: this.http.get<Array<SurveyEntry>>(this.dataUrls[0]),
-      english: this.http.get<Array<SurveyEntry>>(this.dataUrls[1])
-    }).subscribe(({german, english}) => {
-
-      if (personalCollection) {
-        // TODO: add custom entry
-        this.personalCollectionId = personalCollection;
-        german[0].options.push(new AnswerOption(666, personalCollection, false, false));
-        english[0].options.push(new AnswerOption(666, personalCollection, false, false));
-      }
-
-      this.questionsDE = german;
-      this.questionsEN = english;
-
-      this.language$.subscribe(languageCode => {
+    this.questions$ = combineLatest([
+      this.language$ = this.store.select(selectLanguage),
+      this.http.get<Array<SurveyEntry>>(this.dataUrls[0]), // German
+      this.http.get<Array<SurveyEntry>>(this.dataUrls[1]) // English
+    ]).pipe(
+      map(([languageCode, german, english]) => {
         this.translate.use(languageCode);
 
-        if (languageCode == 'de') {
-          this.questions = this.questionsDE;
-        } else {
-          this.questions = this.questionsEN;
-        }
+        let initialized = (this.questionsDE.length != 0 && this.questionsEN.length != 0);
+        if (! initialized) {
+          if (personalCollection) {
+            this.personalCollectionId = personalCollection;
+            german[0].options.push(new AnswerOption(666, personalCollection, false, false));
+            english[0].options.push(new AnswerOption(666, personalCollection, false, false));
+          }
+          this.questionsDE = german;
+          this.questionsEN = english;
+        }        
+        return languageCode === 'de' ? this.questionsDE : this.questionsEN;
       })
-    });
+    );
+
   }
 
 
@@ -149,7 +146,10 @@ export class Questionnaire {
   submitAnswers() {
     this.storeAnswers();
     let answerSummary: string = ''
-    this.questions.forEach(question => {
+    // both game lists are updated when changing a selector
+    // to be independent from the listener in the constructor, the EN list is used as default
+    // I definitely don't want a listener connected to a redirect/URL modification
+    this.questionsEN.forEach(question => {
       question.options.forEach(option => {
         if (option.selected) {
           answerSummary += (answerSummary == '' ? '' : '-') + option.id;
@@ -170,11 +170,14 @@ export class Questionnaire {
   }
 
   changePriority(optionId: number) {
-    const priority = this.questions[optionId].isPrioritized;
+    this.questions$.subscribe(questions => {
+    const priority = questions[optionId].isPrioritized;
     // this function is still useful, as ngModel only updates the active list
     this.questionsDE[optionId].isPrioritized = priority;
     this.questionsEN[optionId].isPrioritized = priority;
-    console.log('Changing priority:', this.questions[optionId].isPrioritized, this.questionsDE[optionId].isPrioritized, this.questionsEN[optionId].isPrioritized)
+    console.log('Changing priority:', questions[optionId].isPrioritized, this.questionsDE[optionId].isPrioritized, this.questionsEN[optionId].isPrioritized)
+    })
+    
   }
 
   updateAnswer(questionList: Array<SurveyEntry>, optionId: number) {
@@ -198,15 +201,18 @@ export class Questionnaire {
   }
 
   storeAnswers() {
+    // both game lists are updated when changing a selector
+    // to be independent from the listener in the constructor, the EN list is used as default
+    // I definitely don't want a listener connected to a one-time dispatch event
     let userAnswers: Array<Array<AnswerOption>> = []
-    this.questions.forEach(element => {
-      if (element.isPrioritized) {
-        element.options.forEach(option => {
-          option.priority = true;          
-        });
-      }
-      userAnswers.push(element.options);
-    });
-    this.store.dispatch(setAnswers({answers: userAnswers}));
+      this.questionsEN.forEach(element => {
+        if (element.isPrioritized) {
+          element.options.forEach(option => {
+            option.priority = true;          
+          });
+        }
+        userAnswers.push(element.options);
+      });
+      this.store.dispatch(setAnswers({answers: userAnswers}));    
   }
 }
