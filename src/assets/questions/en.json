@@ -18,12 +18,6 @@
                 "selected": false
             },
             {
-                "id": 1,
-                "value": "Gleis//Garten",
-                "district": "(1120 Wien)",
-                "selected": false
-            },
-            {
                 "id": 2,
                 "value": "Seestadt",
                 "district": "(1220 Wien)",
